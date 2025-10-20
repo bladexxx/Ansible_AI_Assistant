@@ -59,8 +59,8 @@ const _callAiGateway = async (callName: string, prompt: string): Promise<string>
     }
     
     const modelToUse = gatewayModel || DEFAULT_GEMINI_MODEL;
-    const fullGatewayUrl = `${gatewayUrl}`; // The user may provide the full URL directly.
-
+    //const fullGatewayUrl = `${gatewayUrl}`; // The user may provide the full URL directly.
+    const fullGatewayUrl = `${gatewayUrl}/${modelToUse}/v1/chat/completions`;
     const requestBody = {
       model: modelToUse,
       messages: [{ role: 'user', content: prompt }],
