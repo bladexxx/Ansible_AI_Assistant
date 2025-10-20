@@ -1,0 +1,5 @@
+{
+  "name": "Ansible Playbook AI Assistant",
+  "description": "An intelligent dashboard to generate, analyze, validate, and manage Ansible playbooks with AI-powered insights and result comparison features.",
+  "requestFramePermissions": []
+}
