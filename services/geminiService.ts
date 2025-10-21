@@ -12,6 +12,8 @@ declare var process: {
     VITE_AI_GATEWAY_URL: string;
     VITE_AI_GATEWAY_API_KEY: string;
     VITE_AI_GATEWAY_MODEL: string;
+    VITE_OIDC_DISCOVERY_URL: string;
+    VITE_OIDC_CLIENT_ID: string;
   }
 };
 
