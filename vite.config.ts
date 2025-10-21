@@ -28,16 +28,6 @@ export default defineConfig(({ mode }) => {
       'process.env.VITE_AI_GATEWAY_MODEL': JSON.stringify(env.VITE_AI_GATEWAY_MODEL || ''),
       // Per project guidelines, the Gemini API key MUST come from the execution environment's `process.env.API_KEY`.
       // It is NOT defined here, so the application code will read it directly from the true `process.env` object.
-
-      // OIDC Configuration for Enterprise SSO
-      // In a real application, these values would be stored in a .env file. For example:
-      // VITE_OIDC_DISCOVERY_URL="https://login.microsoftonline.com/<YOUR_TENENT_ID>/v2.0/.well-known/openid-configuration"
-      // VITE_OIDC_CLIENT_ID="<YOUR_APPLICATION_CLIENT_ID>"
-      // IMPORTANT: The oidc.client.secret should NEVER be stored in frontend code.
-      // It's used for backend server flows (confidential clients).
-      // Frontend SPAs use flows like 'Authorization Code with PKCE' which don't require a secret.
-      'process.env.VITE_OIDC_DISCOVERY_URL': JSON.stringify(env.VITE_OIDC_DISCOVERY_URL || ''),
-      'process.env.VITE_OIDC_CLIENT_ID': JSON.stringify(env.VITE_OIDC_CLIENT_ID || ''),
     }
   };
 });
