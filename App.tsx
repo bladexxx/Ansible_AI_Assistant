@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { UserRole, Page } from './types';
 import LoginScreen from './components/LoginScreen';
@@ -9,7 +8,7 @@ import PlaybookManager from './components/PlaybookManager';
 import VmManager from './components/VmManager';
 import ResultComparator from './components/ResultComparator';
 import { Playbook, VM, ExecutionResult } from './types';
-import { mockPlaybooks, mockVms, mockExecutionResults } from './constants';
+import { mockPlaybooks, mockVms, mockExecutionResults, DEFAULT_GROUP_NAME } from './constants';
 
 const App: React.FC = () => {
   const [userRole, setUserRole] = useState<UserRole | null>(null);
@@ -31,7 +30,20 @@ const App: React.FC = () => {
   const addPlaybook = (playbook: Playbook) => {
     setPlaybooks(prev => [playbook, ...prev]);
   };
+
+  const updatePlaybook = (updatedPlaybook: Playbook) => {
+    setPlaybooks(prev => prev.map(p => p.id === updatedPlaybook.id ? updatedPlaybook : p));
+  };
   
+  const renamePlaybookGroup = (oldName: string, newName: string) => {
+    if (!newName || oldName === newName) return;
+    setPlaybooks(prev => prev.map(p => p.group === oldName ? { ...p, group: newName } : p));
+  };
+  
+  const deletePlaybookGroup = (groupName: string) => {
+    setPlaybooks(prev => prev.map(p => p.group === groupName ? { ...p, group: DEFAULT_GROUP_NAME } : p));
+  };
+
   const saveExecutionResult = (result: ExecutionResult) => {
     setResults(prev => [...prev, result]);
   };
@@ -46,6 +58,9 @@ const App: React.FC = () => {
                   playbooks={playbooks} 
                   vms={vms} 
                   onSaveResult={saveExecutionResult}
+                  onUpdatePlaybook={updatePlaybook}
+                  onRenameGroup={renamePlaybookGroup}
+                  onDeleteGroup={deletePlaybookGroup}
                 />;
       case 'vms':
         return <VmManager userRole={userRole!} vms={vms} setVms={setVms} />;

@@ -1,4 +1,3 @@
-
 export enum UserRole {
   Admin = 'Admin',
   Operator = 'Operator',
@@ -12,6 +11,7 @@ export interface Playbook {
   name: string;
   content: string;
   description?: string;
+  group?: string;
 }
 
 export interface VM {

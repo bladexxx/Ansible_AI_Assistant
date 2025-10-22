@@ -1,10 +1,12 @@
-
 import { Playbook, VM, ExecutionResult } from './types';
+
+export const DEFAULT_GROUP_NAME = 'Default';
 
 export const mockPlaybooks: Playbook[] = [
   {
     id: '1',
     name: 'check-nifi-env.yml',
+    group: 'System Checks',
     content: `
 - name: Check NiFi Environment
   hosts: nifi_servers
@@ -24,6 +26,7 @@ export const mockPlaybooks: Playbook[] = [
   {
     id: '2',
     name: 'setup-python-venv.yml',
+    group: 'Setup',
     content: `
 - name: Setup Python Virtual Environment
   hosts: all
@@ -40,6 +43,24 @@ export const mockPlaybooks: Playbook[] = [
         creates: /opt/myapp_venv/bin/activate
 `,
     description: 'Installs python3-venv and creates a virtual environment.'
+  },
+    {
+    id: '3',
+    name: 'check-disk-space.yml',
+    // No group assigned, should fall into the Default group.
+    content: `
+- name: Check Disk Space
+  hosts: all
+  tasks:
+    - name: Get disk space
+      ansible.builtin.command: df -h /
+      register: df_output
+
+    - name: Display disk space
+      ansible.builtin.debug:
+        var: df_output.stdout_lines
+`,
+    description: 'Checks the disk space of the root partition.'
   },
 ];
 
